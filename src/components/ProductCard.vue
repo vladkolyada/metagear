@@ -24,7 +24,7 @@ const emit = defineEmits(['add', 'open'])
         <div v-if="product.oldPrice" class="old-price">{{ formatPrice(product.oldPrice) }}</div>
         <div class="price" :class="{ sale: product.oldPrice }">{{ formatPrice(product.price) }}</div>
       </div>
-      <button type="button" class="btn cart-btn" :class="inCart ? 'btn-outline in-cart' : 'btn-buy'"
+      <button type="button" class="btn cart-btn" :class="inCart ? 'in-cart' : 'btn-buy'"
               @click="emit('add', product)" :aria-label="(inCart ? 'Ще один у кошик: ' : 'Додати в кошик: ') + product.name">
         {{ inCart ? '✓ У кошику' : 'У кошик' }}
       </button>
@@ -57,5 +57,6 @@ const emit = defineEmits(['add', 'open'])
 .card-category { margin: 0; font-size: .8rem; color: var(--muted); }
 .card-bottom { margin-top: auto; display: flex; flex-wrap: wrap; gap: .5rem; align-items: flex-end; justify-content: space-between; }
 .cart-btn { min-height: 40px; padding: 0 .9rem; }
-.in-cart { color: var(--buy); border-color: var(--buy); }
+.in-cart { background: #e7f6ed; color: #007a35; border-color: #9fd8b5; }
+.in-cart:hover { background: #d6f0e0; }
 </style>
