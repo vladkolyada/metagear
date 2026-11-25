@@ -24,7 +24,8 @@ function placeOrder(order) {
 </script>
 
 <template>
-  <BaseModal :title="step === 'checkout' ? 'Оформлення замовлення' : 'Кошик'" @close="emit('close')">
+  <!-- :key="step" — при зміні кроку вікно створюється заново і фокус знову всередині (працює Esc) -->
+  <BaseModal :key="step" :title="step === 'checkout' ? 'Оформлення замовлення' : 'Кошик'" @close="emit('close')">
     <!-- Замовлення оформлено -->
     <div v-if="step === 'done'" class="state">
       <p class="big">🎉 Дякуємо! Замовлення №{{ orderNumber }} прийнято.</p>

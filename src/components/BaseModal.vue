@@ -1,23 +1,19 @@
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, useTemplateRef } from 'vue'
 
-// Спільне модальне вікно: затемнення, кнопка «закрити», закриття клавішею Esc
+// Спільне модальне вікно: затемнення, кнопка «закрити», закриття клавішею Esc.
+// Esc ловимо подією в шаблоні (@keydown.esc), а не через addEventListener
 defineProps({ title: { type: String, required: true } })
 const emit = defineEmits(['close'])
-const dialog = ref(null)
 
-function onKey(event) {
-  if (event.key === 'Escape') emit('close')
-}
-onMounted(() => {
-  window.addEventListener('keydown', onKey)
-  dialog.value.focus() // фокус у вікно, щоб клавіатура працювала одразу
-})
-onUnmounted(() => window.removeEventListener('keydown', onKey))
+// Ref на шаблон (офіційний спосіб Vue): переводимо фокус у вікно,
+// щоб клавіатура (Tab, Esc) працювала всередині нього одразу після відкриття
+const dialog = useTemplateRef('dialog')
+onMounted(() => dialog.value.focus())
 </script>
 
 <template>
-  <div class="overlay" @click.self="emit('close')">
+  <div class="overlay" @click.self="emit('close')" @keydown.esc="emit('close')">
     <section ref="dialog" class="modal" role="dialog" aria-modal="true" :aria-label="title" tabindex="-1">
       <header class="modal-head">
         <h2>{{ title }}</h2>
@@ -29,20 +25,19 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 </template>
 
 <style scoped>
+/* Mobile-first: на телефоні вікно на весь екран, від 40rem — картка по центру */
 .overlay {
   position: fixed; inset: 0; z-index: 50; display: flex; align-items: flex-start; justify-content: center;
-  padding: 4vh 1rem; background: rgba(17, 17, 23, .55); overflow-y: auto;
+  background: rgba(17, 17, 23, .55); overflow-y: auto;
 }
-.modal {
-  width: 100%; max-width: 760px; padding: 1.25rem 1.5rem 1.5rem; background: #fff; border-radius: 14px; box-shadow: var(--shadow);
-}
+.modal { width: 100%; min-height: 100%; padding: 1rem; background: #fff; }
 .modal:focus { outline: none; }
 .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: .75rem; }
 .modal-head h2 { font-size: 1.35rem; }
 .close { width: 40px; height: 40px; flex-shrink: 0; border: 0; border-radius: 8px; background: #f2f2f5; font-size: 1rem; }
 .close:hover { background: #e7e5f3; color: var(--accent); }
-@media (max-width: 600px) {
-  .overlay { padding: 0; }
-  .modal { min-height: 100%; border-radius: 0; padding: 1rem; }
+@media (min-width: 40rem) {
+  .overlay { padding: 4vh var(--gutter); }
+  .modal { max-width: 760px; min-height: 0; padding: 1.25rem 1.5rem 1.5rem; border-radius: 14px; box-shadow: var(--shadow); }
 }
 </style>
