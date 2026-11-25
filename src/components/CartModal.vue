@@ -28,15 +28,15 @@ function placeOrder(order) {
   <BaseModal :key="step" :title="step === 'checkout' ? 'Оформлення замовлення' : 'Кошик'" @close="emit('close')">
     <!-- Замовлення оформлено -->
     <div v-if="step === 'done'" class="state">
-      <p class="big">🎉 Дякуємо! Замовлення №{{ orderNumber }} прийнято.</p>
-      <p>Це навчальний проєкт, тому замовлення ніде не зберігається і нікуди не надсилається.</p>
+      <p class="big">Замовлення №{{ orderNumber }} прийнято</p>
+      <p>Дякуємо! Це навчальний проєкт, тому замовлення ніде не зберігається і нікуди не надсилається.</p>
       <button type="button" class="btn btn-accent" @click="emit('close')">Повернутися до каталогу</button>
     </div>
 
     <!-- Порожній кошик -->
     <div v-else-if="items.length === 0" class="state">
-      <p class="big">🛒 Кошик порожній</p>
-      <p>Додайте товари з каталогу — вони з'являться тут.</p>
+      <p class="big">Кошик порожній</p>
+      <p>Додайте товари з тір-листа — вони з'являться тут.</p>
       <button type="button" class="btn btn-accent" @click="emit('close')">До каталогу</button>
     </div>
 
@@ -65,7 +65,7 @@ function placeOrder(order) {
 .total { display: flex; justify-content: flex-end; align-items: baseline; gap: .75rem; padding: 1rem 0; }
 .actions { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: space-between; }
 .state { padding: 1.5rem 0; text-align: center; }
-.state .big { font-size: 1.25rem; font-weight: 700; margin: 0 0 .5rem; }
+.state .big { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; margin: 0 0 .5rem; }
 .state p { color: var(--muted); margin: 0 0 1.25rem; }
 .state .big { color: var(--text); }
 </style>

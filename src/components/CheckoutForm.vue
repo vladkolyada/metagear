@@ -81,13 +81,13 @@ function send() {
 
 <style scoped>
 .checkout { display: grid; gap: 1rem; }
-.summary { margin: 0; padding: .75rem 1rem; background: #f6f2ff; border-radius: 8px; }
+.summary { margin: 0; padding: .75rem 1rem; background: var(--bg); border-radius: var(--radius); }
 label { display: grid; gap: .35rem; font-size: .9rem; font-weight: 600; }
 input, textarea {
   width: 100%; min-width: 0; padding: .65rem .8rem; font-weight: 400;
   border: 1px solid var(--border); border-radius: 8px; background: #fff;
 }
-input:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124, 58, 237, .15); }
+input:focus, textarea:focus { outline: none; border-color: var(--text); box-shadow: 0 0 0 1px var(--text); }
 input[aria-invalid="true"] { border-color: var(--sale); }
 .error { color: var(--sale); font-size: .8rem; font-weight: 500; margin: 0; }
 .row { display: grid; gap: 1rem; }

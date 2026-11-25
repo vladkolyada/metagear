@@ -15,7 +15,10 @@ const emit = defineEmits(['close', 'add'])
     <div class="product">
       <img :src="product.image" :alt="product.name" width="600" height="600">
       <div>
-        <p class="category">{{ product.category }}</p>
+        <p class="category">
+          <span class="tier" :class="'tier-' + product.tier">{{ product.tier }}</span>
+          {{ product.category }}, тір {{ product.tier }}
+        </p>
         <p class="description">{{ product.description }}</p>
 
         <h3>Характеристики</h3>
@@ -45,7 +48,7 @@ const emit = defineEmits(['close', 'add'])
 .product { display: grid; gap: 1.5rem; }
 @media (min-width: 40rem) { .product { grid-template-columns: 1fr 1.1fr; align-items: start; } }
 img { width: 100%; aspect-ratio: 1; object-fit: contain; border: 1px solid var(--border); border-radius: var(--radius); }
-.category { margin: 0; color: var(--accent); font-weight: 600; font-size: .875rem; }
+.category { display: flex; align-items: center; gap: .6rem; margin: 0; font-weight: 600; font-size: .9rem; }
 .description { margin: .5rem 0 1.25rem; }
 h3 { font-size: 1rem; margin-bottom: .5rem; }
 .specs { margin: 0 0 1.25rem; }

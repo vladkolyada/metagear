@@ -3,6 +3,7 @@
 Комп'ютерний практикум № 2 з дисципліни «Веб-технології».
 **Тема:** інтернет-каталог комп'ютерної техніки **MetaGear** з кошиком та оформленням замовлення.
 «Мета» в іграх — найефективніша тактика чи спорядження на цей момент. Тобто MetaGear — це найактуальніше залізо.
+Тому каталог оформлено як ігровий **тір-лист**: товари розкладені по рядках S (найкраще зараз), A (сильний вибір) і B (під свою задачу).
 
 ![Головна сторінка MetaGear](docs/screenshot.png)
 
@@ -29,8 +30,8 @@ npm run lint     # перевірка коду (oxlint + ESLint)
 
 ## Що вміє сайт
 
-- Каталог з 11 товарів у 4 категоріях (ноутбуки, комп'ютери, миші, клавіатури). Дані лежать у `public/products.json` і завантажуються через `fetch`.
-- Фільтр за категорією, пошук за назвою і сортування за ціною чи назвою, без перезавантаження сторінки.
+- Каталог з 11 товарів у 4 категоріях (ноутбуки, комп'ютери, миші, клавіатури), розкладений у тір-лист S / A / B. Дані лежать у `public/products.json` і завантажуються через `fetch`.
+- Фільтр за категорією, пошук за назвою, перемикання між тір-листом і сортуванням за ціною чи назвою — без перезавантаження сторінки.
 - Сторінка товару (модальне вікно) з описом і характеристиками.
 - Кошик: додати, змінити кількість (+ / −), видалити. Лічильник у шапці й загальна сума оновлюються одразу. Кошик зберігається в `localStorage`.
 - Оформлення замовлення: форма з перевіркою полів (ім'я, телефон, e-mail, доставка, місто, відділення).
@@ -41,14 +42,14 @@ npm run lint     # перевірка коду (oxlint + ESLint)
 | № | Вимога | Де в коді |
 |---|---|---|
 | 1 | Каталог ≥ 8 позицій (назва, ціна, зображення, категорія), JSON через `fetch` | `public/products.json`, `loadProducts()` в `src/App.vue` |
-| 2 | Фільтр за категорією і пошук через `computed` | `visibleProducts`, `categories` в `src/App.vue` |
+| 2 | Фільтр за категорією і пошук через `computed` | `visibleProducts`, `categories`, `tierRows` в `src/App.vue` |
 | 3 | Кошик: додати, + / −, видалити; лічильник і сума одразу | `addToCart`, `changeQty`, `removeFromCart`, `cartCount`, `cartTotal` в `src/App.vue` |
-| 4 | Власні компоненти, props + emit | `ProductCard.vue` (props `product`, `inCart`; події `add`, `open`), `CartItem.vue` (props `item`; події `increase`, `decrease`, `remove`), а також `CartModal`, `ProductModal`, `CheckoutForm`, `BaseModal` |
+| 4 | Власні компоненти, props + emit | `ProductCard.vue` (props `product`, `inCart`; події `add`, `open`), `CartItem.vue` (props `item`; події `increase`, `decrease`, `remove`), а також `TierRow`, `CartModal`, `ProductModal`, `CheckoutForm`, `BaseModal` |
 | 5 | Кошик у `localStorage` через `watch` | `watch(cart, …, { deep: true })` і `loadCart()` в `src/App.vue` |
 | 6 | Повідомлення «кошик порожній» і «нічого не знайдено» | `CartModal.vue`, блок `v-else-if="visibleProducts.length === 0"` в `App.vue` |
 | 7 | Адаптивна верстка з КП № 1, без горизонтальної прокрутки | ті самі прийоми, що в [КП № 1](https://github.com/vladkolyada/worky-site-new): `--gutter: clamp(…)`, контейнер `.wrap { width: min(100% - var(--gutter) * 2, var(--max)) }`, mobile-first `@media (min-width: …rem)` з брейкпоінтами 40/56rem, сітка `minmax(min(13rem, 100%), 1fr)`, `clamp()` для заголовків, посилання «Перейти до каталогу», `prefers-reduced-motion`. Перевірено на ширинах 320–1440 px |
 | + | Оформлення замовлення з перевіркою полів | `CheckoutForm.vue` (`errors` — `computed`) |
-| + | Сортування за ціною | `sort` + `visibleProducts` в `App.vue` |
+| + | Сортування за ціною | `sort` + `visibleProducts` в `App.vue` (режим «за тір-листом» групує товари через `tierRows`) |
 
 ## Реактивність без ручної роботи з DOM
 
@@ -73,6 +74,7 @@ src/
   assets/main.css      загальні стилі й кольори
   utils/format.js      форматування ціни (89 999 ₴)
   components/
+    TierRow.vue        рядок тір-листа (S / A / B) з картками
     ProductCard.vue    картка товару
     CartItem.vue       рядок кошика
     CartModal.vue      вікно кошика (список → оформлення → «дякуємо»)
@@ -83,7 +85,7 @@ src/
 
 ## Як додати товар
 
-Додайте об'єкт у `public/products.json` (унікальний `id`, `name`, `category`, `price`, `image`, за бажанням `oldPrice`, `description`, `specs`) і покладіть фото в `public/images/`. Нова категорія з'явиться в меню автоматично.
+Додайте об'єкт у `public/products.json` (унікальний `id`, `name`, `category`, `tier` — `S`, `A` або `B`, `price`, `image`, за бажанням `oldPrice`, `description`, `specs`) і покладіть фото в `public/images/`. Нова категорія з'явиться в меню автоматично.
 
 ## Розгортання на GitHub Pages
 
@@ -92,5 +94,6 @@ src/
 
 ## Примітки
 
-- Навчальний проєкт: ціни, характеристики й замовлення умовні, оплати немає.
+- Навчальний проєкт: ціни, характеристики, тіри й замовлення умовні, оплати немає.
+- Шрифти Unbounded і Golos Text підключені з пакетів `@fontsource` (лежать у проєкті, без Google Fonts).
 - Фото товарів узято з мого попереднього проєкту [store_site](https://github.com/vladkolyada/store_site).

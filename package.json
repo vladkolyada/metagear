@@ -12,6 +12,8 @@
     "lint:eslint": "eslint . --fix --cache"
   },
   "dependencies": {
+    "@fontsource/golos-text": "5.3.0",
+    "@fontsource/unbounded": "5.3.0",
     "vue": "^3.5.42"
   },
   "devDependencies": {

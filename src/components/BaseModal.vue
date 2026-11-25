@@ -33,9 +33,9 @@ onMounted(() => dialog.value.focus())
 .modal { width: 100%; min-height: 100%; padding: 1rem; background: #fff; }
 .modal:focus { outline: none; }
 .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: .75rem; }
-.modal-head h2 { font-size: 1.35rem; }
+.modal-head h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.05rem, .9rem + .8vw, 1.35rem); }
 .close { width: 40px; height: 40px; flex-shrink: 0; border: 0; border-radius: 8px; background: #f2f2f5; font-size: 1rem; }
-.close:hover { background: #e7e5f3; color: var(--accent); }
+.close:hover { background: var(--text); color: #fff; }
 @media (min-width: 40rem) {
   .overlay { padding: 4vh var(--gutter); }
   .modal { max-width: 760px; min-height: 0; padding: 1.25rem 1.5rem 1.5rem; border-radius: 14px; box-shadow: var(--shadow); }
