@@ -91,7 +91,7 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); box-sh
 input[aria-invalid="true"] { border-color: var(--sale); }
 .error { color: var(--sale); font-size: .8rem; font-weight: 500; margin: 0; }
 .row { display: grid; gap: 1rem; }
-@media (min-width: 560px) { .row { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 36rem) { .row { grid-template-columns: 1fr 1fr; } }
 fieldset { margin: 0; padding: .75rem 1rem; border: 1px solid var(--border); border-radius: 8px; display: grid; gap: .4rem; }
 legend { padding: 0 .3rem; font-weight: 600; font-size: .9rem; }
 .radio { display: flex; align-items: center; gap: .5rem; font-weight: 400; }

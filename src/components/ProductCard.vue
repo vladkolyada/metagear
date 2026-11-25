@@ -35,7 +35,7 @@ const emit = defineEmits(['add', 'open'])
 <style scoped>
 .card {
   display: flex; flex-direction: column; gap: .5rem;
-  padding: 1rem; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: .75rem; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
   transition: box-shadow .2s, border-color .2s;
 }
 .card:hover { box-shadow: var(--shadow); border-color: transparent; }
@@ -55,8 +55,14 @@ const emit = defineEmits(['add', 'open'])
 }
 .card-title:hover { color: var(--accent); text-decoration: underline; }
 .card-category { margin: 0; font-size: .8rem; color: var(--muted); }
-.card-bottom { margin-top: auto; display: flex; flex-wrap: wrap; gap: .5rem; align-items: flex-end; justify-content: space-between; }
-.cart-btn { min-height: 40px; padding: 0 .9rem; }
+.card-bottom { margin-top: auto; display: flex; flex-direction: column; gap: .5rem; }
+.cart-btn { min-height: 40px; padding: 0 .5rem; font-size: .9rem; white-space: nowrap; }
+/* mobile-first: на телефоні кнопка на всю ширину картки, з 40rem — поруч із ціною */
+@media (min-width: 40rem) {
+  .card { padding: 1rem; }
+  .cart-btn { padding: 0 .9rem; font-size: 1rem; }
+  .card-bottom { flex-direction: row; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; }
+}
 .in-cart { background: #e7f6ed; color: #007a35; border-color: #9fd8b5; }
 .in-cart:hover { background: #d6f0e0; }
 </style>

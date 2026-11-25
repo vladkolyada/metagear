@@ -43,7 +43,7 @@ const emit = defineEmits(['close', 'add'])
 
 <style scoped>
 .product { display: grid; gap: 1.5rem; }
-@media (min-width: 640px) { .product { grid-template-columns: 1fr 1.1fr; align-items: start; } }
+@media (min-width: 40rem) { .product { grid-template-columns: 1fr 1.1fr; align-items: start; } }
 img { width: 100%; aspect-ratio: 1; object-fit: contain; border: 1px solid var(--border); border-radius: var(--radius); }
 .category { margin: 0; color: var(--accent); font-weight: 600; font-size: .875rem; }
 .description { margin: .5rem 0 1.25rem; }
